@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <vector>
 
@@ -8,21 +10,26 @@
 #include "Voxel.h"
 
 class Chunk{
-
 public:
-    //Variables
-    std::vector<Voxel> Voxels;
 
     //Constructors And Functions
     Chunk();
-
+    void generateChunk();
+    void Update();
     void RenderChunk();
-
     ~Chunk();
 
 private:
+    //Variables
+    std::vector<Voxel> Voxels;
+    int height, width, depth;
+    std::vector<Vertex> vertices;
+    std::vector<uint32_t> indices;
 
-
+    bool isVoxelVisible(int x, int y, int z, int axis);
+    void createOrMergeQuad(int x, int y, int z, int axis, std::vector<bool>& mask);
+    Voxel& getVoxel(int X, int y, int z);
+    void addQuad(int x, int y, int z, int w, int h, int axis);
 };
 
 
